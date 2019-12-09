@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, Response
 from db import mongo
 from bson.json_util import dumps
 
@@ -14,7 +14,9 @@ def get_all_cities():
     # output = []
     # for cities in cities_details.find():
     #     output.append(cities['cityStatus'])
-    return dumps({'result' : cities_details})
+    json_resp = dumps({'message': 'All City Details', 'result' : cities_details})
+    resp = Response(json_resp, status=200, mimetype='application/json')
+    return resp
 
 if (__name__ == "__main__"):
     app.run(debug=True)
